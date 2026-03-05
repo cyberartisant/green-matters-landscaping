@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Matters Landscaping</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-dark:  #2d5a27;
+      --green-mid:   #4a7c3f;
+      --green-light: #7db26a;
+      --cream:       #f5f0e8;
+      --brown:       #8b6914;
+      --brown-light: #c8a96a;
+      --white:       #ffffff;
+      --text-dark:   #1e2a1a;
+      --text-mid:    #3d4f39;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--text-dark);
+      background: var(--cream);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(45, 90, 39, 0.97);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo .leaf { font-size: 1.6rem; }
+
+    .nav-logo span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--cream);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--brown-light); }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: rgba(245,240,232,0.7);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 0.3rem 0.75rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--brown-light);
+      color: var(--text-dark);
+      border-radius: 50px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(30,60,25,0.62), rgba(45,90,39,0.45)),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200, 169, 106, 0.25);
+      border: 1px solid var(--brown-light);
+      color: var(--brown-light);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    .hero h1 span { color: var(--brown-light); }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(245,240,232,0.9);
+      max-width: 520px;
+      margin-bottom: 2.4rem;
+      line-height: 1.7;
+    }
+
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border-radius: 4px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+
+    .btn-primary { background: var(--green-dark); color: var(--cream); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--cream);
+      color: var(--cream);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 2rem; }
+
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .centered { text-align: center; }
+    .centered .section-sub { margin: 0 auto; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--white); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.8rem;
+      max-width: 1100px;
+      margin: 3rem auto 0;
+    }
+
+    .service-card {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 2.2rem 1.8rem;
+      border-top: 4px solid var(--green-mid);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(74,124,63,0.15);
+    }
+
+    .service-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      color: var(--green-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      font-size: 0.93rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ── WHY US ── */
+    #why { background: var(--green-dark); color: var(--cream); }
+
+    #why .section-label { color: var(--brown-light); }
+    #why .section-title { color: var(--cream); }
+    #why .section-sub   { color: rgba(245,240,232,0.8); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 3rem auto 0;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+    }
+
+    .why-card .icon { font-size: 2rem; margin-bottom: 0.7rem; }
+    .why-card h4 { color: var(--brown-light); margin-bottom: 0.4rem; font-size: 1rem; }
+    .why-card p  { font-size: 0.88rem; color: rgba(245,240,232,0.75); line-height: 1.6; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--cream); }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 960px;
+      margin: 3rem auto 0;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 1.3rem;
+      color: var(--green-dark);
+      margin-bottom: 1.4rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .contact-item .ci-icon {
+      font-size: 1.3rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .contact-item .ci-text strong {
+      display: block;
+      color: var(--green-dark);
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-item .ci-text a,
+    .contact-item .ci-text span {
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .contact-item .ci-text a:hover { color: var(--green-mid); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.85rem 1rem;
+      border: 1.5px solid #c8d8c3;
+      border-radius: 6px;
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      background: var(--white);
+      color: var(--text-dark);
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--green-mid);
+    }
+
+    .contact-form textarea { min-height: 120px; }
+    .contact-form .btn-primary { align-self: flex-start; cursor: pointer; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text-dark);
+      color: rgba(245,240,232,0.65);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+    }
+
+    footer .footer-logo {
+      font-size: 1.1rem;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+      font-family: 'Georgia', serif;
+    }
+
+    footer a { color: var(--brown-light); text-decoration: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 680px) {
+      nav { padding: 1rem 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
+      .nav-right { gap: 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.78rem; }
+      .contact-wrapper { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#home" class="nav-logo">
+    <span class="leaf">🌿</span>
+    <span>Green Matters</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#services" data-en="Services" data-fr="Services">Services</a></li>
+      <li><a href="#why"      data-en="Why Us"   data-fr="Pourquoi Nous">Why Us</a></li>
+      <li><a href="#contact"  data-en="Contact"  data-fr="Contact">Contact</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn"        onclick="setLang('fr')">FR</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <p class="hero-badge" data-en="Hudson's Trusted Lawn Experts" data-fr="Les experts en gazon de confiance à Hudson">Hudson's Trusted Lawn Experts</p>
+  <h1 data-en="Your Lawn Deserves<br><span>Green Matters</span>" data-fr="Votre pelouse mérite<br><span>Green Matters</span>">Your Lawn Deserves<br><span>Green Matters</span></h1>
+  <p data-en="Professional landscaping services for a yard you'll be proud of — from grass cutting to full aeration." data-fr="Des services d'aménagement paysager professionnels pour une cour dont vous serez fier — de la tonte à l'aération complète.">Professional landscaping services for a yard you'll be proud of — from grass cutting to full aeration.</p>
+  <div class="btn-group">
+    <a href="#contact" class="btn btn-primary" data-en="Get a Free Quote" data-fr="Obtenir une soumission gratuite">Get a Free Quote</a>
+    <a href="#services" class="btn btn-outline" data-en="Our Services" data-fr="Nos Services">Our Services</a>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <div class="centered">
+    <p class="section-label" data-en="What We Offer" data-fr="Ce Que Nous Offrons">What We Offer</p>
+    <h2 class="section-title" data-en="Our Services" data-fr="Nos Services">Our Services</h2>
+    <p class="section-sub"    data-en="We keep it simple — four core services done right, every time." data-fr="On fait simple — quatre services essentiels, bien faits, à chaque fois.">We keep it simple — four core services done right, every time.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🌱</div>
+      <h3 data-en="Grass Cutting"   data-fr="Tonte de gazon">Grass Cutting</h3>
+      <p  data-en="Regular mowing keeps your lawn healthy and looking its best all season long. We cut clean, every visit." data-fr="Une tonte régulière garde votre pelouse en santé et à son meilleur tout au long de la saison. On coupe propre, à chaque visite.">Regular mowing keeps your lawn healthy and looking its best all season long. We cut clean, every visit.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✂️</div>
+      <h3 data-en="Hedge Trimming"  data-fr="Taille de haies">Hedge Trimming</h3>
+      <p  data-en="Crisp, precise hedge cutting that gives your property a polished, well-maintained appearance." data-fr="Une taille précise et nette qui donne à votre propriété un aspect soigné et entretenu.">Crisp, precise hedge cutting that gives your property a polished, well-maintained appearance.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🪱</div>
+      <h3 data-en="Top Soil"        data-fr="Terre noire">Top Soil</h3>
+      <p  data-en="Fresh top soil application to enrich your lawn, fill in bare patches, and prepare for new growth." data-fr="Application de terre noire fraîche pour enrichir votre pelouse, combler les zones dégarnies et préparer une nouvelle croissance.">Fresh top soil application to enrich your lawn, fill in bare patches, and prepare for new growth.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💨</div>
+      <h3 data-en="Aeration"        data-fr="Aération">Aeration</h3>
+      <p  data-en="Core aeration loosens compacted soil, improves drainage, and lets your grass breathe and thrive." data-fr="L'aération par carottes décompacte le sol, améliore le drainage et permet à votre gazon de respirer et de prospérer.">Core aeration loosens compacted soil, improves drainage, and lets your grass breathe and thrive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY US ══ -->
+<section id="why">
+  <div class="centered">
+    <p class="section-label" data-en="Why Choose Us"                 data-fr="Pourquoi Nous Choisir">Why Choose Us</p>
+    <h2 class="section-title" data-en="The Green Matters Difference"  data-fr="La Différence Green Matters">The Green Matters Difference</h2>
+    <p class="section-sub"    data-en="We take pride in every job, no matter the size. Hudson homeowners trust us to show up and deliver." data-fr="Nous sommes fiers de chaque travail, peu importe la taille. Les propriétaires d'Hudson nous font confiance pour livrer la marchandise.">We take pride in every job, no matter the size. Hudson homeowners trust us to show up and deliver.</p>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="icon">📍</div>
+      <h4 data-en="Locally Based"     data-fr="Basés localement">Locally Based</h4>
+      <p  data-en="We're right here in Hudson — your neighbours, your community." data-fr="On est ici même à Hudson — vos voisins, votre communauté.">We're right here in Hudson — your neighbours, your community.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">✅</div>
+      <h4 data-en="Reliable & On Time" data-fr="Fiables et ponctuels">Reliable & On Time</h4>
+      <p  data-en="We show up when we say we will, rain or shine." data-fr="On se présente quand on le dit, qu'il pleuve ou qu'il fasse soleil.">We show up when we say we will, rain or shine.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">💰</div>
+      <h4 data-en="Fair Pricing"      data-fr="Prix équitables">Fair Pricing</h4>
+      <p  data-en="Honest, transparent quotes with no hidden fees." data-fr="Des soumissions honnêtes et transparentes, sans frais cachés.">Honest, transparent quotes with no hidden fees.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">🌿</div>
+      <h4 data-en="Quality Work"      data-fr="Travail de qualité">Quality Work</h4>
+      <p  data-en="We treat every lawn like our own and don't cut corners." data-fr="On traite chaque pelouse comme la nôtre et on ne fait pas les coins ronds.">We treat every lawn like our own and don't cut corners.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="centered">
+    <p class="section-label"  data-en="Get In Touch"          data-fr="Contactez-Nous">Get In Touch</p>
+    <h2 class="section-title" data-en="Request a Free Quote"  data-fr="Demandez une Soumission Gratuite">Request a Free Quote</h2>
+    <p class="section-sub"    data-en="Ready to transform your yard? Reach out — we'd love to help." data-fr="Prêt à transformer votre cour? Contactez-nous — on sera heureux de vous aider.">Ready to transform your yard? Reach out — we'd love to help.</p>
+  </div>
+
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <h3 data-en="Contact Information" data-fr="Informations de Contact">Contact Information</h3>
+
+      <div class="contact-item">
+        <span class="ci-icon">📞</span>
+        <div class="ci-text">
+          <strong data-en="Phone"    data-fr="Téléphone">Phone</strong>
+          <a href="tel:5148038800">514-803-8800</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span class="ci-icon">✉️</span>
+        <div class="ci-text">
+          <strong data-en="Email"    data-fr="Courriel">Email</strong>
+          <a href="mailto:greenmatterslandscaping@gmail.com">greenmatterslandscaping@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span class="ci-icon">📍</span>
+        <div class="ci-text">
+          <strong data-en="Location" data-fr="Emplacement">Location</strong>
+          <span>Hudson, Quebec</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span class="ci-icon">🕐</span>
+        <div class="ci-text">
+          <strong data-en="Hours"    data-fr="Heures">Hours</strong>
+          <span data-en="Mon – Sat: 7:00 AM – 6:00 PM" data-fr="Lun – Sam : 7 h – 18 h">Mon – Sat: 7:00 AM – 6:00 PM</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <input type="text"  name="name"    id="inp-name"    placeholder="Your Name"         required />
+      <input type="tel"   name="phone"   id="inp-phone"   placeholder="Phone Number"       />
+      <input type="email" name="email"   id="inp-email"   placeholder="Email Address"      required />
+      <textarea           name="message" id="inp-message" placeholder="Tell us about your property and what you need..."></textarea>
+      <button type="submit" id="submit-btn" class="btn btn-primary" data-en="Send Message" data-fr="Envoyer le message">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p class="footer-logo">🌿 Green Matters Landscaping</p>
+  <p>Hudson, Quebec &nbsp;|&nbsp; <a href="tel:5148038800">514-803-8800</a> &nbsp;|&nbsp; <a href="mailto:greenmatterslandscaping@gmail.com">greenmatterslandscaping@gmail.com</a></p>
+  <p style="margin-top:0.6rem;" data-en="&copy; 2026 Green Matters Landscaping. All rights reserved." data-fr="&copy; 2026 Green Matters Landscaping. Tous droits réservés.">&copy; 2026 Green Matters Landscaping. All rights reserved.</p>
+</footer>
+
+<script>
+  // ── Language system ──
+  let currentLang = 'en';
+
+  const formPlaceholders = {
+    en: {
+      'inp-name':    'Your Name',
+      'inp-phone':   'Phone Number',
+      'inp-email':   'Email Address',
+      'inp-message': 'Tell us about your property and what you need...',
+    },
+    fr: {
+      'inp-name':    'Votre nom',
+      'inp-phone':   'Numéro de téléphone',
+      'inp-email':   'Adresse courriel',
+      'inp-message': 'Parlez-nous de votre propriété et de vos besoins...',
+    }
+  };
+
+  const submitSuccess = {
+    en: '✅ Message Sent!',
+    fr: '✅ Message envoyé!'
+  };
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    // Update all translatable text nodes
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if (text) el.innerHTML = text;
+    });
+
+    // Update form placeholders
+    const pmap = formPlaceholders[lang];
+    Object.keys(pmap).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.placeholder = pmap[id];
+    });
+
+    // Update lang toggle buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+  }
+
+  // ── Nav scroll highlight ──
+  const sections  = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#c8a96a' : '';
+    });
+  });
+
+  // ── Form submit ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = submitSuccess[currentLang];
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = btn.getAttribute('data-' + currentLang);
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
