@@ -376,6 +376,8 @@
       .contact-wrapper { grid-template-columns: 1fr; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('6blYjHRkjfZv5bgIp');</script>
 </head>
 <body>
 
@@ -600,13 +602,24 @@
   function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.textContent = submitSuccess[currentLang];
+    const originalLabel = btn.getAttribute('data-' + currentLang);
+    btn.textContent = currentLang === 'fr' ? 'Envoi en cours...' : 'Sending...';
     btn.disabled = true;
-    setTimeout(() => {
-      btn.innerHTML = btn.getAttribute('data-' + currentLang);
-      btn.disabled = false;
-      e.target.reset();
-    }, 3000);
+
+    emailjs.sendForm('service_h9mv6b8', 'template_u5i7ax9', e.target)
+      .then(() => {
+        btn.textContent = submitSuccess[currentLang];
+        e.target.reset();
+        setTimeout(() => {
+          btn.innerHTML = originalLabel;
+          btn.disabled = false;
+        }, 3000);
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', JSON.stringify(err));
+        btn.textContent = currentLang === 'fr' ? '❌ Erreur — réessayez' : '❌ Error — please try again';
+        btn.disabled = false;
+      });
   }
 </script>
 
